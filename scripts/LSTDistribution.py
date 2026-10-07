@@ -10,7 +10,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score, mean_squared_error
 
 #compute NDWI
-folder = "/Users/keerth/Desktop/GIS/VIT-Paper/TS/LC08_L2SP_142051_20150405_20200909_02_T1"
+folder = "/UHI-Analysis/data"
 
 B3 = rasterio.open(f"{folder}/LC08_L2SP_142051_20150405_20200909_02_T1_SR_B3.TIF").read(1).astype(float)
 B4 = rasterio.open(f"{folder}/LC08_L2SP_142051_20150405_20200909_02_T1_SR_B4.TIF").read(1).astype(float)
@@ -45,7 +45,7 @@ LST = LST_K - 273.15
 LST[(LST < 15) |(LST > 70)] = np.nan
 
 # CHENNAI LST VALIDATION
-chennai_boundary = gpd.read_file("/Users/keerth/Desktop/GIS/VIT-Paper/Chennai_map.kml",driver="KML")
+chennai_boundary = gpd.read_file("/Data/Chennai_map.kml",driver="KML")
 chennai_clean = chennai_boundary.to_crs("EPSG:32644")
 chennai_clean = chennai_clean.dissolve()
 
@@ -87,7 +87,7 @@ UHI[LST_clip >= mean_temp + std_temp] = 4
 UHI[np.isnan(LST_clip)] = np.nan
 
 #Read DEM
-DEM = rasterio.open("/Users/keerth/Desktop/GIS/VIT-Paper/TS/output_SRTMGL1.tif").read(1).astype(float)
+DEM = rasterio.open("/UHI-Analysis/data/output_SRTMGL1.tif").read(1).astype(float)
 
 #Create Data Frame
 df = pd.DataFrame({'NDVI': NDVI.flatten(),'NDBI': NDBI.flatten(),'NDWI': NDWI.flatten(),'LST': LST.flatten()})
@@ -98,7 +98,7 @@ df = df.sample(n=50000,random_state=42)
 print("Rows after sampling:", len(df))
 
 # Export CSV
-df.to_csv("/Users/keerth/Desktop/GIS/VIT-Paper/TS/Output/UHI_2015Sample_50000.csv",index=False)
+df.to_csv("/UHI-Analysis/Map/UHI_2015Sample_50000.csv",index=False)
 print("CSV saved successfully")
 
 # Clip NDVI
@@ -126,7 +126,7 @@ summary = pd.DataFrame({
 "Mean": [np.nanmean(NDVI_clip),np.nanmean(NDBI_clip),np.nanmean(NDWI_clip),np.nanmean(LST_clip)],
 "Median": [np.nanmedian(NDVI_clip),np.nanmedian(NDBI_clip),np.nanmedian(NDWI_clip),np.nanmedian(LST_clip)]})
 
-summary.to_csv("/Users/keerth/Desktop/GIS/VIT-Paper/TS/Output/Index_Summary_2015.csv",index=False)
+summary.to_csv("/UHI-Analysis/Map/Index_Summary_2015.csv",index=False)
 print("Summary CSV exported successfully")
 
 # Water
