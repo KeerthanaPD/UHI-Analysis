@@ -4,10 +4,7 @@ import geopandas as gpd
 #import numpy as np
 #from rasterio.features import geometry_mask
 
-# Input ST_B10 file
-input_tif = "/UHI-Analysis/data/LC08_L2SP_142051_20150405_20200909_02_T1/LC08_L2SP_142051_20150405_20200909_02_T1_ST_B10.TIF"
-
-# Output LST file
+input_tif = "/UHI-Analysis/data/LC08_L2SP_142051_20150405_20200909_02_T1_ST_B10.TIF"
 output_tif = "/UHI-Analysis/Map/LST_2015.tif"
 
 with rasterio.open(input_tif) as src:
