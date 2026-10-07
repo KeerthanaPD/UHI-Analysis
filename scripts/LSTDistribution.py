@@ -9,14 +9,12 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import r2_score, mean_squared_error
 
-#compute NDWI
 folder = "/UHI-Analysis/data"
 
 B3 = rasterio.open(f"{folder}/LC08_L2SP_142051_20150405_20200909_02_T1_SR_B3.TIF").read(1).astype(float)
 B4 = rasterio.open(f"{folder}/LC08_L2SP_142051_20150405_20200909_02_T1_SR_B4.TIF").read(1).astype(float)
 B5 = rasterio.open(f"{folder}/LC08_L2SP_142051_20150405_20200909_02_T1_SR_B5.TIF").read(1).astype(float)
 B6 = rasterio.open(f"{folder}/LC08_L2SP_142051_20150405_20200909_02_T1_SR_B6.TIF").read(1).astype(float)
-
 ST = rasterio.open(f"{folder}/LC08_L2SP_142051_20150405_20200909_02_T1_ST_B10.TIF").read(1).astype(float)
 QA = rasterio.open(f"{folder}/LC08_L2SP_142051_20150405_20200909_02_T1_ST_QA.TIF").read(1)
 
@@ -116,7 +114,6 @@ NDBI_clip[~mask_geom] = np.nan
 # Clip LST
 LST_clip = LST.copy()
 LST_clip[~mask_geom] = np.nan
-
 
 #Export NDVI NDBI NDWI LST
 summary = pd.DataFrame({
