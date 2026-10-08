@@ -5,7 +5,6 @@ Analysis of Urban Heat Island (UHI) dynamics in Chennai using Landsat imagery, R
 ## Tools
 
 - Python
-- QGIS
 - Rasterio
 - GeoPandas
 - NumPy
